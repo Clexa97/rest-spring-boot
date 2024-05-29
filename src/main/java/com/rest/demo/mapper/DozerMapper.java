@@ -1,7 +1,9 @@
 package com.rest.demo.mapper;
 
 
+import com.rest.demo.data.vo.v1.BookVO;
 import com.rest.demo.data.vo.v1.PersonVO;
+import com.rest.demo.model.Book;
 import com.rest.demo.model.Person;
 import org.modelmapper.ModelMapper;
 
@@ -21,6 +23,16 @@ public class DozerMapper {
                         PersonVO.class,
                         Person.class)
                 .addMapping(PersonVO::getKey, Person::setId);
+    }
+    static {
+        mapper.createTypeMap(
+                        Book.class,
+                        BookVO.class)
+                .addMapping(Book::getId, BookVO::setKey);
+        mapper.createTypeMap(
+                        BookVO.class,
+                        Book.class)
+                .addMapping(BookVO::getKey, Book::setId);
     }
     public static <O, D> D parseObject(O origin, Class<D> destination) {
         return mapper.map(origin, destination);
