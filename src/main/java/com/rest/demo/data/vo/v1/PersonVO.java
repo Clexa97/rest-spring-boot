@@ -10,12 +10,12 @@ import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
 
-@JsonPropertyOrder({"id", "firstName", "lastName", "address", "gender"})
+
 @NoArgsConstructor @AllArgsConstructor @Getter @Setter @EqualsAndHashCode
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable{
 
-    @JsonProperty("id")
-    private Long key;
+
+    private Long id;
     private String firstName;
     private String lastName;
     private String address;

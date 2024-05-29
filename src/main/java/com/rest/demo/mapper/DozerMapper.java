@@ -16,16 +16,6 @@ public class DozerMapper {
 
     static {
         mapper.createTypeMap(
-                        Person.class,
-                        PersonVO.class)
-                .addMapping(Person::getId, PersonVO::setKey);
-        mapper.createTypeMap(
-                        PersonVO.class,
-                        Person.class)
-                .addMapping(PersonVO::getKey, Person::setId);
-    }
-    static {
-        mapper.createTypeMap(
                         Book.class,
                         BookVO.class)
                 .addMapping(Book::getId, BookVO::setKey);
