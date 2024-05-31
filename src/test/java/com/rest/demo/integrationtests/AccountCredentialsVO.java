@@ -1,4 +1,4 @@
-package com.rest.demo.data.vo.v1.security;
+package com.rest.demo.integrationtests;
 
 import lombok.*;
 
