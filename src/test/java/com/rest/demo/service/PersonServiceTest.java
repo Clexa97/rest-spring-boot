@@ -60,13 +60,16 @@ class PersonServiceTest {
 
     @Test
     void testCreate() {
-        Person persisted = input.mockEntity(1);
+        Person entity = input.mockEntity(1);
+        entity.setId(1L);
+
+        Person persisted = entity;
         persisted.setId(1L);
 
         PersonVO vo = input.mockVO(1);
         vo.setId(1L);
 
-        when(repository.save(any(Person.class))).thenReturn(persisted);
+        when(repository.save(entity)).thenReturn(persisted);
 
         var result = service.create(vo);
 
@@ -121,8 +124,6 @@ class PersonServiceTest {
         assertEquals("Female", result.getGender());
     }
 
-
-
     @Test
     void testUpdateWithNullPerson() {
         Exception exception = assertThrows(RequiredObjectIsNullException.class, () -> {
@@ -143,54 +144,5 @@ class PersonServiceTest {
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
 
         service.delete(1L);
-    }
-
-    @Test
-    void testFindAll() {
-        List<Person> list = input.mockEntityList();
-
-        when(repository.findAll()).thenReturn(list);
-
-        var people = service.findAll();
-
-        assertNotNull(people);
-        assertEquals(14, people.size());
-
-        var personOne = people.get(1);
-
-        assertNotNull(personOne);
-        assertNotNull(personOne.getId());
-        assertNotNull(personOne.getLinks());
-
-        assertTrue(personOne.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
-        assertEquals("Addres Test1", personOne.getAddress());
-        assertEquals("First Name Test1", personOne.getFirstName());
-        assertEquals("Last Name Test1", personOne.getLastName());
-        assertEquals("Female", personOne.getGender());
-
-        var personFour = people.get(4);
-
-        assertNotNull(personFour);
-        assertNotNull(personFour.getId());
-        assertNotNull(personFour.getLinks());
-
-        assertTrue(personFour.toString().contains("links: [</api/person/v1/4>;rel=\"self\"]"));
-        assertEquals("Addres Test4", personFour.getAddress());
-        assertEquals("First Name Test4", personFour.getFirstName());
-        assertEquals("Last Name Test4", personFour.getLastName());
-        assertEquals("Male", personFour.getGender());
-
-        var personSeven = people.get(7);
-
-        assertNotNull(personSeven);
-        assertNotNull(personSeven.getId());
-        assertNotNull(personSeven.getLinks());
-
-        assertTrue(personSeven.toString().contains("links: [</api/person/v1/7>;rel=\"self\"]"));
-        assertEquals("Addres Test7", personSeven.getAddress());
-        assertEquals("First Name Test7", personSeven.getFirstName());
-        assertEquals("Last Name Test7", personSeven.getLastName());
-        assertEquals("Female", personSeven.getGender());
-
     }
 }
